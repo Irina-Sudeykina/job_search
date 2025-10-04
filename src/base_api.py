@@ -7,9 +7,11 @@ class BaseAPI(ABC):
     """
 
     @abstractmethod
-    def __load_vacancies(self):
+    def _load_vacancies(self, keyword: str) -> None:
         """
         Абстрактный приватный метод для подключения к api
+        :param keyword: строка - запрос для поиска вакансий
+        :return: None
         """
         pass
 
@@ -17,5 +19,7 @@ class BaseAPI(ABC):
     def get_vacancies(self, keyword: str):
         """
         Абстрактный метод для получения вакансий
+        :param keyword: строка - запрос для поиска вакансий
+        :return: None
         """
         pass
