@@ -67,3 +67,32 @@ class HeadHunterAPI(BaseAPI):
         """
         self._load_vacancies(keyword)
         return json.dumps(self.__vacancies, indent=4)
+
+    def __load_vacancy_description(self, id_vacance: str) -> None:
+        """
+        Приватный метод получения полной информации по id вакансии
+        :param id_vacance: строка - id вакансии
+        :return: None
+        """
+
+        url = f"{self.url}/{id_vacance}"
+        response = requests.get(url)
+
+        if response.status_code != 200:
+            print(f"Ошибка при получении полных данных о вакансии с id {id_vacance}: {response.status_code}")
+
+        data = response.json()
+        self.__vacancies = []
+        self.__vacancies.append(data)
+
+    def get_vacancy_description(self, id_vacance: str) -> Any:
+        """
+        Публичный метод получения полной информации по id вакансии в формате JSON
+        :param id_vacance: строка - id вакансии
+        :return: None
+        """
+        try:
+            self.__load_vacancy_description(id_vacance)
+            return json.dumps(self.__vacancies, indent=4)
+        except Exception as e:
+            return json.dumps({"description": "Not Found", "error": str(e)}, indent=4)

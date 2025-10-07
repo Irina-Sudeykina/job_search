@@ -83,3 +83,62 @@ def test_get_vacancies(mock_get) -> None:
     assert len(parsed_result) == 2
     assert {"name": "Python Developer"} in parsed_result
     assert {"name": "JavaScript Developer"} in parsed_result
+
+
+def test_get_vacancy_description_success() -> None:
+    """
+    Проверка метода get_vacancy_description сласса HeadHunterAPI
+    Тестируем успешный случай получения описания вакансии
+    :return: Ничего не возвращает
+    """
+
+    with patch("requests.get") as mock_get:
+        # Поддельный ответ сервера
+        fake_response_data = {
+            "description": "Описание вакансии",
+            "salary": {"from": 100000},
+            "address": {"city": "Москва"},
+            "id": "12345",
+        }
+
+        # Создание поддельного ответа
+        mock_response = Mock()
+        mock_response.json.return_value = fake_response_data
+        mock_response.status_code = 200
+        mock_get.return_value = mock_response
+
+        # Создаем экземпляр класса и получаем описание вакансии
+        hh_api = HeadHunterAPI()
+        result = hh_api.get_vacancy_description("12345")
+
+        # Парсим результат в JSON
+        parsed_result = json.loads(result)
+
+        # Проверяем полученные данные
+        assert isinstance(parsed_result, list)
+        assert len(parsed_result) == 1
+        assert parsed_result[0]["description"] == "Описание вакансии"
+        assert parsed_result[0]["id"] == "12345"
+
+
+def test_get_vacancy_description_failure() -> None:
+    """
+    Проверка метода get_vacancy_description сласса HeadHunterAPI
+    Тестируем случай ошибки при получении описания вакансии
+    :return: Ничего не возвращает
+    """
+
+    with patch("requests.get") as mock_get:
+        # Создаем поддельный ответ с ошибочным статусом
+        mock_response = Mock()
+        mock_response.status_code = 404
+        mock_get.return_value = mock_response
+
+        # Создаем экземпляр класса и пытаемся получить описание вакансии
+        hh_api = HeadHunterAPI()
+        result = hh_api.get_vacancy_description("invalid_id")
+
+        # Результат должен содержать ключ "error"
+        parsed_result = json.loads(result)
+        assert isinstance(parsed_result, dict)
+        assert "error" in parsed_result

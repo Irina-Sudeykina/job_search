@@ -1,0 +1,243 @@
+import json
+import re
+from typing import Any, Optional
+
+from src.base_vacancy import BaseVacancy
+from src.hh_api import HeadHunterAPI
+
+
+class Vacancy(BaseVacancy):
+    """
+    Класс для работы с вакансиями
+    """
+
+    __slots__ = ["id_vacancy", "name", "url", "description", "salary"]
+
+    instances: list = []
+
+    def __init__(self, id_vacancy: str, name: str, url: str, description: str, salary: Optional[Any]) -> None:
+        """
+        Инициализация класса Vacancy:
+        :param id_vacancy: строка - id вакансии
+        :param name: строка - наименование
+        :param url: строка - ссылка на вакансию
+        :param description: строка - описание
+        :param salary: словарь - диапазон зарплаты
+        :return: None
+        """
+        self.id_vacancy = id_vacancy
+        self.name = name
+        self.url = url
+        self.description = description
+        self.salary = salary
+
+        self.__validate_url(url)
+        self.__validate_salary(salary)
+
+        Vacancy.instances.append(self)
+
+    def __str__(self):
+        """
+        Представление объекта Vacancy в текстовом виде
+        """
+        return f"id: {self.id_vacancy} {self.name} {self.salary["from"]}-{self.salary["to"]} руб. url: {self.url}"
+
+    def __validate_salary(self, salary):
+        """
+        Валидация вакансии по зарплате
+        """
+        if salary is None:
+            salary_vacancy = {"from": 0, "to": 0}
+        elif isinstance(salary, int):
+            salary_vacancy = {"from": salary, "to": salary}
+        elif isinstance(salary, str):
+            try:
+                value = int(salary)
+                salary_vacancy = {"from": value, "to": value}
+            except ValueError:
+                salary_vacancy = {"from": 0, "to": 0}
+        elif isinstance(salary, dict):
+            # Получаем зарплату с дефолтом в 0, если ключ отсутствует
+            salary_from = salary.get("from", 0)
+            salary_to = salary.get("to", 0)
+
+            # Приводим возможные None-значения к числу
+            salary_from = salary_from or 0
+            salary_to = salary_to or 0
+
+            # Обработка границ зарплаты
+            if salary_from == 0 and salary_to > 0:
+                salary_from = salary_to // 2
+            elif salary_to == 0 and salary_from > 0:
+                salary_to = salary_from
+            elif salary_from > salary_to and salary_from > 0 and salary_to > 0:
+                salary_from, salary_to = salary_to, salary_from
+
+            salary_vacancy = {"from": salary_from, "to": salary_to}
+        else:
+            salary_vacancy = {"from": 0, "to": 0}
+
+        self.salary = salary_vacancy
+
+    def __validate_url(self, url):
+        """
+        Валидация вакансии по url
+        """
+        if isinstance(url, str):
+            url_pattern = re.compile(
+                r"^https?://"  # Протокол (http или https)
+                r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # Доменное имя
+                r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # Или IP-адрес
+                r"(?::\d+)?"  # Необязательный номер порта
+                r"(?:/?|[/?]\S+)$",
+                re.IGNORECASE,
+            )  # Необязательный путь
+            if re.match(url_pattern, url) is not None:
+                self.url = url
+            else:
+                self.url = "https://hh.ru/vacancy"
+        else:
+            self.url = "https://hh.ru/vacancy"
+
+    def __eq__(self, other):
+        """
+        Проверка на равенство по зарплате
+        """
+        if isinstance(other, (float, int)):
+            return self.salary["from"] == other
+        elif isinstance(other, Vacancy):
+            return self.salary["from"] == other.salary["from"] and self.salary["to"] == other.salary["to"]
+        else:
+            raise TypeError("Сравнение невозможно")
+
+    def __ne__(self, other):
+        """
+        Проверка на не равенство по зарплате
+        """
+        if isinstance(other, (float, int)):
+            return self.salary["from"] != other
+        elif isinstance(other, Vacancy):
+            return self.salary["from"] != other.salary["from"] and self.salary["to"] != other.salary["to"]
+        else:
+            raise TypeError("Сравнение невозможно")
+
+    def __lt__(self, other):
+        """
+        Проверка когда первый объект меньше второго по зарплате
+        """
+        if isinstance(other, (float, int)):
+            return self.salary["from"] < other
+        elif isinstance(other, Vacancy):
+            return self.salary["from"] < other.salary["from"]
+        else:
+            raise TypeError("Сравнение невозможно")
+
+    def __le__(self, other):
+        """
+        Проверка когда первый объект меньше или равен второму по зарплате
+        """
+        if isinstance(other, (float, int)):
+            return self.salary["from"] <= other
+        elif isinstance(other, Vacancy):
+            return self.salary["from"] <= other.salary["from"]
+        else:
+            raise TypeError("Сравнение невозможно")
+
+    def __gt__(self, other):
+        """
+        Проверка когда первый объект больше второго по зарплате
+        """
+        if isinstance(other, (float, int)):
+            return self.salary["from"] > other
+        elif isinstance(other, Vacancy):
+            return self.salary["from"] > other.salary["from"]
+        else:
+            raise TypeError("Сравнение невозможно")
+
+    def __ge__(self, other):
+        """
+        Проверка когда первый объект больше или равен второго по зарплате
+        """
+        if isinstance(other, (float, int)):
+            return self.salary["from"] >= other
+        elif isinstance(other, Vacancy):
+            return self.salary["from"] >= other.salary["from"]
+        else:
+            raise TypeError("Сравнение невозможно")
+
+    @classmethod
+    def cast_to_object_list(cls, json_vacancies) -> None:
+        """
+        Class метод для преобразования набора данных из JSON в список объектов Vacancy
+        :param json_vacancies: JSON с вакансиями
+        :return: None
+        """
+        # Парсим строку JSON в словарь
+        hh_vacancies = json.loads(json_vacancies)
+
+        hh_api = HeadHunterAPI()
+
+        # Проверяем есть ли такие вакансии в списке, если нет, то создаем вакансию
+        for vacancy in hh_vacancies:
+            if not cls.instances:
+                id_vacancy = vacancy.get("id", "")
+
+                # Получаем полную информацию по вакансии
+                hh_vacancy_description = hh_api.get_vacancy_description(id_vacancy)
+                hh_vacancy_description_data = json.loads(hh_vacancy_description)
+
+                if len(hh_vacancy_description_data) > 0:
+                    vacancy_description = hh_vacancy_description_data[0].get("description", "")
+
+                if vacancy_description == "Not Found":
+                    vacancy_description = vacancy.get("description", "")
+
+                cls(
+                    vacancy.get("id", ""),
+                    vacancy.get("name", ""),
+                    vacancy.get("alternate_url", "https://hh.ru/vacancy"),
+                    vacancy_description,
+                    vacancy.get("salary", 0),
+                )
+            else:
+                is_in_list = False
+                for instance in cls.instances:
+                    if instance.id_vacancy == vacancy.get("id", ""):
+                        instance.name = vacancy.get("name", "")
+                        instance.url = vacancy.get("alternate_url", 0)
+
+                        id_vacancy = vacancy.get("id", "")
+
+                        # Получаем полную информацию по вакансии
+                        hh_vacancy_description = hh_api.get_vacancy_description(id_vacancy)
+                        hh_vacancy_description_data = json.loads(hh_vacancy_description)
+
+                        if len(hh_vacancy_description_data) > 0:
+                            instance.description = hh_vacancy_description_data[0].get("description", "")
+
+                        if instance.description == "Not Found":
+                            instance.description = vacancy.get("description", "")
+
+                        instance.salary = vacancy.get("salary", 0)
+                        is_in_list = True
+
+                if not is_in_list:
+                    id_vacancy = vacancy.get("id", "")
+
+                    # Получаем полную информацию по вакансии
+                    hh_vacancy_description = hh_api.get_vacancy_description(id_vacancy)
+                    hh_vacancy_description_data = json.loads(hh_vacancy_description)
+
+                    if len(hh_vacancy_description_data) > 0:
+                        vacancy_description = hh_vacancy_description_data[0].get("description", "")
+
+                    if vacancy_description == "Not Found":
+                        vacancy_description = vacancy.get("description", "")
+
+                    cls(
+                        vacancy.get("id", ""),
+                        vacancy.get("name", ""),
+                        vacancy.get("alternate_url", "https://hh.ru/vacancy"),
+                        vacancy_description,
+                        vacancy.get("salary", 0),
+                    )
