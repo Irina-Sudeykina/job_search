@@ -183,3 +183,86 @@ def json_vacancies2():
     """
     json_vacancies_str = json.loads(data_vacancies)
     return json.dumps(json_vacancies_str)
+
+
+@pytest.fixture
+def top_2_vacansies():
+    """
+    Фикстура топ 2 вакансии сс самыми высокими зарплатами
+    """
+    return """id: 12345 Python Developer 120000-150000 руб. url: https://hh.ru/vacancy/12345
+id: 92752367 Менеджер по продажам недвижимости 50000-60000 руб. url: https://hh.ru/vacancy/92752367"""
+
+
+@pytest.fixture
+def list_vacansies_obj1():
+    """
+    Фикстура со списком экземпляров класса Vacancy - 1
+    """
+    return [
+        Vacancy(
+            "122493254",
+            "Senior Python разработчик",
+            "https://hh.ru/vacancy/122493254",
+            "Опыт коммерческой разработки на Python от 3-х лет.",
+            {"from": 150000, "to": 240000},
+        ),
+        Vacancy(
+            "125456182",
+            "Middle Python разработчик",
+            "https://hh.ru/vacancy/125456182",
+            "Писать back-end и API. Linux (настройка окружения)",
+            {"from": 200000, "to": 200000},
+        ),
+        Vacancy(
+            "126176500",
+            "Middle Python разработчик",
+            "https://hh.ru/vacancy/126176500",
+            "Уверенное знание Python. Фундаментальные знания в области информационных технологий.",
+            {"from": 0, "to": 0},
+        ),
+        Vacancy(
+            "125538232",
+            "Middle Backed Python разработчик",
+            "https://hh.ru/vacancy/125538232",
+            "Опыт разработки на Python от 2–3 лет, уверенное знание языка и его экосистемы.",
+            {"from": 0, "to": 0},
+        ),
+        Vacancy(
+            "125962759",
+            "MPython разработчик Middle+",
+            "https://hh.ru/vacancy/125962759",
+            "Опыт разработки на Python 3.10+ в production-разработке.",
+            {"from": 150000, "to": 200000},
+        ),
+        Vacancy(
+            "125799412",
+            "Python разработчик",
+            "https://hh.ru/vacancy/125799412",
+            "Опыт работы с MLFlow (или любым другим open source решением, где бук на python)",
+            {"from": 0, "to": 0},
+        ),
+    ]
+
+
+@pytest.fixture
+def list_vacansies_obj2():
+    """
+    Фикстура со списком экземпляров класса Vacancy - 2
+    """
+    return [
+        Vacancy(
+            "126071783",
+            "Ведущий python разработчик",
+            "https://hh.ru/vacancy/126071783",
+            "Хорошие знания и навыки в написании сервисов на Python.",
+            {"from": 0, "to": 0},
+        ),
+        Vacancy(
+            "125962759",
+            "MPython разработчик Middle+",
+            "https://hh.ru/vacancy/125962759",
+            "Опыт разработки на Python 3.10+ в production-разработке.",
+            {"from": 150000, "to": 200000},
+        ),
+    ]

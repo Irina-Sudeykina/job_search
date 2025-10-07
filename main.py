@@ -3,6 +3,9 @@ import json
 from src.hh_api import HeadHunterAPI
 from src.vacancy import Vacancy
 
+# from src.working_with_json_files import WorkingWithJsonFiles
+# import src.utils as utils
+
 
 def user_interaction() -> None:
     """
@@ -70,7 +73,15 @@ def user_interaction() -> None:
 
     Vacancy.cast_to_object_list(json_vacancies)
     print(len(Vacancy.instances))
-    print(Vacancy.instances[0])
+
+    Vacancy.sorted_by_salary()
+    for i in Vacancy.instances:
+        print(str(i))
+
+    print("\n\n")
+    top_vacancy = Vacancy.top_n_salary(2)
+    print("\n")
+    print(len(top_vacancy))
 
 
 if __name__ == "__main__":

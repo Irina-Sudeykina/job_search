@@ -167,3 +167,27 @@ def test_cast_to_object_list(json_vacancies1, json_vacancies2) -> None:
     Vacancy.cast_to_object_list(json_vacancies2)
 
     assert len(Vacancy.instances) == 4
+
+
+def test_sorted_by_salary(list_vacansies_obj1) -> None:
+    """
+    Проверка сортировки списка объектов Vacancy
+    :param list_vacansies_obj1: Фикстура со списком экземпляров класса Vacancy - 1
+    :return: Ничего не возвращает
+    """
+    assert Vacancy.instances[0].id_vacancy != "125456182"
+
+    Vacancy.sorted_by_salary()
+
+    assert Vacancy.instances[0].id_vacancy == "125456182"
+
+
+def test_top_n_salary(list_vacansies_obj1) -> None:
+    """
+    Проверка отбора n объектов Vacancy с самыми высокими зарплатами
+    :param list_vacansies_obj1: Фикстура со списком экземпляров класса Vacancy - 1
+    :return: Ничего не возвращает
+    """
+    top_vacancy = Vacancy.top_n_salary(2)
+    print(top_vacancy)
+    assert len(top_vacancy) == 2

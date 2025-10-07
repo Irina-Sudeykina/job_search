@@ -187,7 +187,9 @@ class Vacancy(BaseVacancy):
                 hh_vacancy_description_data = json.loads(hh_vacancy_description)
 
                 if len(hh_vacancy_description_data) > 0:
-                    vacancy_description = hh_vacancy_description_data[0].get("description", "")
+                    vacancy_description = next(
+                        (item.get("description", "") for item in hh_vacancy_description_data), ""
+                    )
 
                 if vacancy_description == "Not Found":
                     vacancy_description = vacancy.get("description", "")
@@ -213,7 +215,9 @@ class Vacancy(BaseVacancy):
                         hh_vacancy_description_data = json.loads(hh_vacancy_description)
 
                         if len(hh_vacancy_description_data) > 0:
-                            instance.description = hh_vacancy_description_data[0].get("description", "")
+                            instance.description = next(
+                                (item.get("description", "") for item in hh_vacancy_description_data), ""
+                            )
 
                         if instance.description == "Not Found":
                             instance.description = vacancy.get("description", "")
@@ -229,7 +233,9 @@ class Vacancy(BaseVacancy):
                     hh_vacancy_description_data = json.loads(hh_vacancy_description)
 
                     if len(hh_vacancy_description_data) > 0:
-                        vacancy_description = hh_vacancy_description_data[0].get("description", "")
+                        vacancy_description = next(
+                            (item.get("description", "") for item in hh_vacancy_description_data), ""
+                        )
 
                     if vacancy_description == "Not Found":
                         vacancy_description = vacancy.get("description", "")
@@ -241,3 +247,22 @@ class Vacancy(BaseVacancy):
                         vacancy_description,
                         vacancy.get("salary", 0),
                     )
+
+    @classmethod
+    def sorted_by_salary(cls, is_reverse=True) -> None:
+        """
+        Class метод для сортировки объектов Vacancy по зарплате
+        :return: None
+        """
+        cls.instances = sorted(cls.instances, key=lambda vacancy: vacancy, reverse=is_reverse)
+
+    @classmethod
+    def top_n_salary(cls, n: int) -> list[dict]:
+        """
+        Class метод возвращает тор n вакансий по зарплате
+        :param n: количество вакансий с наибольшей зарплатой
+        :return: список из n словарей вакансий с наибольшими зарплатами
+        """
+        cls.sorted_by_salary()
+        print("\n".join(str(i).strip() for i in cls.instances[:n]))
+        return cls.instances[:n]
