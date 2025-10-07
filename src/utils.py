@@ -4,11 +4,14 @@ def merging_dictionary_lists(data: list[dict], new_data: list[dict], key_str: st
         if len(merge_list) == 0:
             merge_list.append(i)
         else:
+            is_in_list = False
             for index, item in enumerate(merge_list):
                 if item.get(key_str) == i.get(key_str):
                     merge_list[index] = i
+                    is_in_list = True
 
-            merge_list.append(i)
+            if not is_in_list:
+                merge_list.append(i)
 
     for i in new_data:
         if len(merge_list) == 0:

@@ -5,11 +5,14 @@ from src.working_with_json_files import WorkingWithJsonFiles
 
 
 def test_getting_data():
+    """
+    Тестирование метода getting_data класса WorkingWithJsonFiles
+    """
     # Тестируем успешное считывание данных
     wjf = WorkingWithJsonFiles("existing_file.json")
     existing_data = wjf.getting_data()
     assert type(existing_data) == list
-    assert len(existing_data) > 0, "Файл не содержит данных"
+    assert len(existing_data) > 0
 
     # Тестируем попытку прочитать несуществующий файл
     non_existing_wjf = WorkingWithJsonFiles("nonexistent_file.json")
@@ -18,6 +21,9 @@ def test_getting_data():
 
 
 def test_adding_data():
+    """
+    Тестирование метода adding_data класса WorkingWithJsonFiles
+    """
     # Данные для тестирования
     new_data = [{"id": "new_id", "name": "New Name"}, {"id": "another_new_id", "name": "Another New Name"}]
 
@@ -34,14 +40,17 @@ def test_adding_data():
     updated_data = wjf.getting_data()
 
     # Проверка наличия новых записей
-    assert any(item["id"] == "new_id" for item in updated_data), "Новая запись не была добавлена"
-    assert any(item["id"] == "another_new_id" for item in updated_data), "Вторая новая запись не была добавлена"
+    assert any(item["id"] == "new_id" for item in updated_data)
+    assert any(item["id"] == "another_new_id" for item in updated_data)
 
     # Удаляем созданный временный файл
     os.remove(wjf._WorkingWithJsonFiles__file_name)
 
 
-def test_deleting_data():
+def test_deleting_data() -> None:
+    """
+    Тестирование метода deleting_data класса WorkingWithJsonFiles
+    """
     # Инстанцируем класс
     wjf = WorkingWithJsonFiles("delete_test_file.json")
 
@@ -61,7 +70,7 @@ def test_deleting_data():
     assert after_delete == []
 
     # Удаляем созданный временный файл
-    os.remove(wjf._WorkingWithJsonFiles__file_name)
+    os.remove(wjf._WorkingWithJsonFiles__file_name)  # type: ignore
 
 
 def test_getting_data_exception(monkeypatch, capsys):
@@ -81,7 +90,7 @@ def test_getting_data_exception(monkeypatch, capsys):
 
     # Проверяем, что сообщение об ошибке появилось в консоли
     captured_output = capsys.readouterr().out
-    assert "Произошла ошибка при чтении файла:" in captured_output, "Сообщение об ошибке не найдено"
+    assert "Произошла ошибка при чтении файла:" in captured_output
 
     # Проверяем, что результат - пустой список
-    assert result == [], "Возвращаемый результат должен быть пустым списком"
+    assert result == []

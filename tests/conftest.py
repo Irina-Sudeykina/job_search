@@ -266,3 +266,167 @@ def list_vacansies_obj2():
             {"from": 150000, "to": 200000},
         ),
     ]
+
+
+@pytest.fixture
+def list_dict_vacansies1():
+    """
+    Фикстура со списком словарей с вакансиями - 1
+    """
+    return [
+        {
+            "id": "122493254",
+            "name": "Senior Python разработчик",
+            "url": "https://hh.ru/vacancy/122493254",
+            "description": "Опыт коммерческой разработки на Python от 3-х лет.",
+            "salary": {"from": 150000, "to": 240000},
+        },
+        {
+            "id": "125456182",
+            "name": "Middle Python разработчик",
+            "url": "https://hh.ru/vacancy/125456182",
+            "description": "Писать back-end и API. Linux (настройка окружения)",
+            "salary": {"from": 200000, "to": 200000},
+        },
+        {
+            "id": "126176500",
+            "name": "Python разработчик",
+            "url": "https://hh.ru/vacancy/126176500",
+            "description": "Уверенное знание Python. Фундаментальные знания в области информационных технологий.",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "125538232",
+            "name": "Middle Backed Python разработчик",
+            "url": "https://hh.ru/vacancy/125538232",
+            "description": "Опыт разработки на Python от 2–3 лет, уверенное знание языка и его экосистемы.",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "125962759",
+            "name": "Python разработчик Middle+",
+            "url": "https://hh.ru/vacancy/125962759",
+            "description": "Опыт разработки на Python 3.10+ в production-разработке.",
+            "salary": {"from": 150000, "to": 200000},
+        },
+        {
+            "id": "125799412",
+            "name": "Python разработчик",
+            "url": "https://hh.ru/vacancy/125799412",
+            "description": "Опыт работы с MLFlow (или любым другим open source решением, где бук на python)",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "125799412",
+            "name": "Python разработчик",
+            "url": "https://hh.ru/vacancy/125799412",
+            "description": "Опыт работы с MLFlow (или любым другим open source решением, где бук на python)",
+            "salary": {"from": 0, "to": 0},
+        },
+    ]
+
+
+@pytest.fixture
+def list_dict_vacansies2():
+    """
+    Фикстура со списком словарей с вакансиями - 2
+    """
+    return [
+        {
+            "id": "126071783",
+            "name": "Ведущий python разработчик",
+            "url": "https://hh.ru/vacancy/126071783",
+            "description": "Хорошие знания и навыки в написании сервисов на Python.",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "125962759",
+            "name": "Python разработчик Middle+",
+            "url": "https://hh.ru/vacancy/125962759",
+            "description": "Опыт разработки на Python 3.10+ в production-разработке. Опыт работы с БД.",
+            "salary": {"from": 170000, "to": 200000},
+        },
+    ]
+
+
+@pytest.fixture
+def list_dict_vacansies3():
+    """
+    Фикстура со списком словарей с вакансиями - 3
+    """
+    return [
+        {
+            "id": "122493254",
+            "name": "Senior Python разработчик",
+            "url": "https://hh.ru/vacancy/122493254",
+            "description": "Опыт коммерческой разработки на Python от 3-х лет.",
+            "salary": {"from": 150000, "to": 240000},
+        },
+        {
+            "id": "125456182",
+            "name": "Middle Python разработчик",
+            "url": "https://hh.ru/vacancy/125456182",
+            "description": "Писать back-end и API. Linux (настройка окружения)",
+            "salary": {"from": 200000, "to": 200000},
+        },
+        {
+            "id": "126176500",
+            "name": "Python разработчик",
+            "url": "https://hh.ru/vacancy/126176500",
+            "description": "Уверенное знание Python. Фундаментальные знания в области информационных технологий.",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "125538232",
+            "name": "Middle Backed Python разработчик",
+            "url": "https://hh.ru/vacancy/125538232",
+            "description": "Опыт разработки на Python от 2–3 лет, уверенное знание языка и его экосистемы.",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "125962759",
+            "name": "Python разработчик Middle+",
+            "url": "https://hh.ru/vacancy/125962759",
+            "description": "Опыт разработки на Python 3.10+ в production-разработке.",
+            "salary": {"from": 150000, "to": 200000},
+        },
+        {
+            "id": "125799412",
+            "name": "Python разработчик",
+            "url": "https://hh.ru/vacancy/125799412",
+            "description": "Опыт работы с MLFlow (или любым другим open source решением, где бук на python).",
+            "salary": {"from": 0, "to": 0},
+        },
+        {
+            "id": "126071783",
+            "name": "Ведущий python разработчик",
+            "url": "https://hh.ru/vacancy/126071783",
+            "description": "Хорошие знания и навыки в написании сервисов на Python.",
+            "salary": {"from": 0, "to": 0},
+        },
+    ]
+
+
+@pytest.fixture
+def list_dict_vacansies4():
+    """
+    Фикстура со списком словарей с вакансиями - 4
+    """
+    return [
+        {
+            "id": "126071783",
+            "name": "Ведущий python разработчик",
+            "url": "https://hh.ru/vacancy/126071783",
+            "description": "Хорошие знания и навыки в написании сервисов на Python.",
+            "salary": {"from": 0, "to": 0},
+            "test": {"1": {"1": 1}},
+        },
+        {
+            "id": "125962759",
+            "name": "Python разработчик Middle+",
+            "url": "https://hh.ru/vacancy/125962759",
+            "description": "Опыт разработки на Python 3.10+ в production-разработке. Опыт работы с БД.",
+            "salary": {"from": 170000, "to": 200000},
+            "test": {"1": {"1": 9}},
+        },
+    ]
