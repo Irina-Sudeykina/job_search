@@ -32,7 +32,7 @@ class WorkingWithJsonFiles(BaseWorkingWithFiles):
         """
         try:
             # Открываем файл для чтения
-            with open(self.__file_name, "r", encoding="utf-8") as file:
+            with open(self.__file_name, "r+", encoding="utf-8") as file:
                 # Загружаем данные из файла в виде списка словарей
                 return json.load(file)
         except FileNotFoundError:
@@ -54,13 +54,12 @@ class WorkingWithJsonFiles(BaseWorkingWithFiles):
         """
         # Загружаем существующие данные из файла
         data = self.getting_data()
-        print(data)
 
         # Добавляем новые данные
         merge_list = utils.merging_dictionary_lists(data, new_data, key_str)
 
         # Записываем обновленные данные обратно в файл
-        with open(self.__file_name, "w", encoding="utf-8") as file:
+        with open(self.__file_name, "w+", encoding="utf-8") as file:
             json.dump(merge_list, file, ensure_ascii=False, indent=4)
 
     def deleting_data(self):

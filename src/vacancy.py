@@ -3,7 +3,6 @@ import re
 from typing import Any, Optional
 
 from src.base_vacancy import BaseVacancy
-from src.hh_api import HeadHunterAPI
 
 
 class Vacancy(BaseVacancy):
@@ -40,7 +39,9 @@ class Vacancy(BaseVacancy):
         """
         Представление объекта Vacancy в текстовом виде
         """
-        return f"id: {self.id_vacancy} {self.name} {self.salary["from"]}-{self.salary["to"]} руб. url: {self.url}"
+        return (
+            f"id: {self.id_vacancy} {self.name} {self.salary.get('from')}-{self.salary.get('to')} руб. url: {self.url}"
+        )
 
     def __validate_salary(self, salary):
         """
@@ -175,30 +176,14 @@ class Vacancy(BaseVacancy):
         # Парсим строку JSON в словарь
         hh_vacancies = json.loads(json_vacancies)
 
-        hh_api = HeadHunterAPI()
-
         # Проверяем есть ли такие вакансии в списке, если нет, то создаем вакансию
         for vacancy in hh_vacancies:
             if not cls.instances:
-                id_vacancy = vacancy.get("id", "")
-
-                # Получаем полную информацию по вакансии
-                hh_vacancy_description = hh_api.get_vacancy_description(id_vacancy)
-                hh_vacancy_description_data = json.loads(hh_vacancy_description)
-
-                if len(hh_vacancy_description_data) > 0:
-                    vacancy_description = next(
-                        (item.get("description", "") for item in hh_vacancy_description_data), ""
-                    )
-
-                if vacancy_description == "Not Found":
-                    vacancy_description = vacancy.get("description", "")
-
                 cls(
                     vacancy.get("id", ""),
                     vacancy.get("name", ""),
                     vacancy.get("alternate_url", "https://hh.ru/vacancy"),
-                    vacancy_description,
+                    vacancy.get("snippet", "").get("requirement", ""),
                     vacancy.get("salary", 0),
                 )
             else:
@@ -206,45 +191,17 @@ class Vacancy(BaseVacancy):
                 for instance in cls.instances:
                     if instance.id_vacancy == vacancy.get("id", ""):
                         instance.name = vacancy.get("name", "")
-                        instance.url = vacancy.get("alternate_url", 0)
-
-                        id_vacancy = vacancy.get("id", "")
-
-                        # Получаем полную информацию по вакансии
-                        hh_vacancy_description = hh_api.get_vacancy_description(id_vacancy)
-                        hh_vacancy_description_data = json.loads(hh_vacancy_description)
-
-                        if len(hh_vacancy_description_data) > 0:
-                            instance.description = next(
-                                (item.get("description", "") for item in hh_vacancy_description_data), ""
-                            )
-
-                        if instance.description == "Not Found":
-                            instance.description = vacancy.get("description", "")
-
+                        instance.url = vacancy.get("alternate_url", "")
+                        instance.description = vacancy.get("snippet", "").get("requirement", "")
                         instance.salary = vacancy.get("salary", 0)
                         is_in_list = True
 
                 if not is_in_list:
-                    id_vacancy = vacancy.get("id", "")
-
-                    # Получаем полную информацию по вакансии
-                    hh_vacancy_description = hh_api.get_vacancy_description(id_vacancy)
-                    hh_vacancy_description_data = json.loads(hh_vacancy_description)
-
-                    if len(hh_vacancy_description_data) > 0:
-                        vacancy_description = next(
-                            (item.get("description", "") for item in hh_vacancy_description_data), ""
-                        )
-
-                    if vacancy_description == "Not Found":
-                        vacancy_description = vacancy.get("description", "")
-
                     cls(
                         vacancy.get("id", ""),
                         vacancy.get("name", ""),
                         vacancy.get("alternate_url", "https://hh.ru/vacancy"),
-                        vacancy_description,
+                        vacancy.get("snippet", "").get("requirement", ""),
                         vacancy.get("salary", 0),
                     )
 
@@ -266,3 +223,33 @@ class Vacancy(BaseVacancy):
         cls.sorted_by_salary()
         print("\n".join(str(i).strip() for i in cls.instances[:n]))
         return cls.instances[:n]
+
+    @classmethod
+    def filter_by_salary(cls, salary_from: int, salary_to: int) -> list[dict]:
+        """
+        Class метод для фильтрации объектов Vacancy по зарплате
+        :param salary_from: нижняя граница зарплаты
+        :param salary_to: верняя граница зарплаты
+        :return: None
+        """
+        filtered_instances = [
+            vacancy
+            for vacancy in cls.instances
+            if (vacancy.salary.get("from", 0) >= salary_from and vacancy.salary.get("to", 0) <= salary_to)
+        ]
+        cls.instances = filtered_instances
+        cls.sorted_by_salary()
+        print("\n".join(str(i).strip() for i in cls.instances))
+        return cls.instances
+
+    @classmethod
+    def filter_by_words(cls, words: str) -> list[dict]:
+        """
+        Class метод для фильтрации объектов Vacancy по тексту в описании
+        :param words: строка для фильтрации
+        :return: None
+        """
+        filtered_instances = [vacancy for vacancy in cls.instances if words.lower() in vacancy.description.lower()]
+        cls.instances = filtered_instances
+        print("\n".join(str(i).strip() + "\n" + i.description + "\n" for i in cls.instances))
+        return cls.instances

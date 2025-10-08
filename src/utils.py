@@ -34,13 +34,19 @@ def sort_dictionary_lists(data: list[dict], params: list, is_reverse=True) -> li
     if len(params) == 0:
         return data
     elif len(params) == 1:
-        sorted_list = sorted(data, key=lambda x: x[params[0]], reverse=is_reverse)
+        sorted_list = sorted(data, key=lambda x: x.get(params[0], None), reverse=is_reverse)  # type: ignore
         return sorted_list
     elif len(params) == 2:
-        sorted_list = sorted(data, key=lambda x: x[params[0]][params[1]], reverse=is_reverse)
+        sorted_list = sorted(
+            data, key=lambda x: x.get(params[0], None).get(params[1], None), reverse=is_reverse  # type: ignore
+        )
         return sorted_list
     elif len(params) == 3:
-        sorted_list = sorted(data, key=lambda x: x[params[0]][params[1]][params[2]], reverse=is_reverse)
+        sorted_list = sorted(
+            data,
+            key=lambda x: x.get(params[0], None).get(params[1], None).get(params[2], None),  # type: ignore
+            reverse=is_reverse,  # type: ignore
+        )
         return sorted_list
     else:
         return data

@@ -1,0 +1,232 @@
+[
+    {
+        "id": "126054919",
+        "name": "Python Developer",
+        "url": "https://hh.ru/vacancy/126054919",
+        "description": "Уверенное знание языка программирования Python 3.11+. Приветствуется навыки обработки данных. Опыт создания и сопровождения python пакетов. ",
+        "salary": {
+            "from": 300000,
+            "to": 300000
+        }
+    },
+    {
+        "id": "126304960",
+        "name": "Data аналитик Senior",
+        "url": "https://hh.ru/vacancy/126304960",
+        "description": "Уверенное знание Python. Продвинутое знание <highlighttext>SQL</highlighttext>. Навыки применения теории вероятности и математической статистики. Опыт поиска, визуализации и интерпретации полезных сигналов...",
+        "salary": {
+            "from": 300000,
+            "to": 340000
+        }
+    },
+    {
+        "id": "126271529",
+        "name": "Senior Python developer",
+        "url": "https://hh.ru/vacancy/126271529",
+        "description": "Опыт коммерческой разработки на Python от 6 лет. Уверенное знание и опыт работы с фреймворками: Django, FastAPI. Опыт проектирования архитектуры...",
+        "salary": {
+            "from": 250000,
+            "to": 300000
+        }
+    },
+    {
+        "id": "126275577",
+        "name": "Руководитель отдела аналитики",
+        "url": "https://hh.ru/vacancy/126275577",
+        "description": "Уверенное владение инструментами аналитики: Excel (сводные таблицы, сложные формулы), <highlighttext>SQL</highlighttext>, Power BI, Python (Pandas, NumPy), опыт работы с ERP-системами...",
+        "salary": {
+            "from": 250000,
+            "to": 250000
+        }
+    },
+    {
+        "id": "125442492",
+        "name": "Python - разработчик",
+        "url": "https://hh.ru/vacancy/125442492",
+        "description": "Отличное знание Python 3.11+. Опыт разработки на FastAPI, Django, Django REST Framework (DRF). Навыки работы с SQLAlchemy 2...",
+        "salary": {
+            "from": 250000,
+            "to": 280000
+        }
+    },
+    {
+        "id": "126167782",
+        "name": "Специалист технической поддержки",
+        "url": "https://hh.ru/vacancy/126167782",
+        "description": "Будет плюсом: Знание основ Python (для автоматизации и обработки данных). Навыки работы с <highlighttext>SQL</highlighttext> (простые запросы, анализ данных). ",
+        "salary": {
+            "from": 250000,
+            "to": 400000
+        }
+    },
+    {
+        "id": "125976035",
+        "name": "Маркетинговый аналитик",
+        "url": "https://hh.ru/vacancy/125976035",
+        "description": "Опыт в продуктовой, маркетинговой или дата-аналитике от двух лет. Уверенное владение <highlighttext>SQL</highlighttext> и Python. Хорошее понимание мат.статистики: можешь объяснить...",
+        "salary": {
+            "from": 240000,
+            "to": 370000
+        }
+    },
+    {
+        "id": "126112776",
+        "name": "QA-инженер (веб-разработка)",
+        "url": "https://hh.ru/vacancy/126112776",
+        "description": "...автотестов (JavaScript/Python). Знание инструментов нагрузочного тестирования (JMeter, Locust). Опыт работы в Agile-командах (Scrum). Практически опыт написания <highlighttext>SQL</highlighttext>-запросов.",
+        "salary": {
+            "from": 220000,
+            "to": 240000
+        }
+    },
+    {
+        "id": "125391904",
+        "name": "Senior Python разработчик",
+        "url": "https://hh.ru/vacancy/125391904",
+        "description": "Отличное знание Python, включая asyncio и aiohttp. - Опыт работы с <highlighttext>SQL</highlighttext> и Linux-системами. - Навыки работы с Docker, PostgreSQL, MongoDB...",
+        "salary": {
+            "from": 220000,
+            "to": 350000
+        }
+    },
+    {
+        "id": "125471403",
+        "name": "Python backend разработчик",
+        "url": "https://hh.ru/vacancy/125471403",
+        "description": "Python 3.10+ — уверенное владение языком, опыт промышленной разработки. <highlighttext>SQL</highlighttext> и проектирование БД — опыт работы с PostgreSQL, оптимизация запросов...",
+        "salary": {
+            "from": 200000,
+            "to": 220000
+        }
+    },
+    {
+        "id": "125705712",
+        "name": "Fullstack-разработчик",
+        "url": "https://hh.ru/vacancy/125705712",
+        "description": "Ты уверенный Fullstack или backend/frontend разработчик. Опыт разработки на Python с использованием Django и FastAPI. Уверенное владение TypeScript и...",
+        "salary": {
+            "from": 200000,
+            "to": 200000
+        }
+    },
+    {
+        "id": "125401126",
+        "name": "Middle+/Senior Backend разработчик (Python)",
+        "url": "https://hh.ru/vacancy/125401126",
+        "description": "Свободное владение Python 3 и Django REST framework. Уверенное знание <highlighttext>SQL</highlighttext> (предпочтительно PostgreSQL). Навыки написания unit- и интеграционных тестов. ",
+        "salary": {
+            "from": 180000,
+            "to": 180000
+        }
+    },
+    {
+        "id": "126110925",
+        "name": "Операционный аналитик",
+        "url": "https://hh.ru/vacancy/126110925",
+        "description": "Проактивность, самостоятельность. Excel, 1C, Python, <highlighttext>SQL</highlighttext>. Отсутствие любых совмещений и внешних подрядов, в том числе в свободное от работы...",
+        "salary": {
+            "from": 180000,
+            "to": 220000
+        }
+    },
+    {
+        "id": "126251076",
+        "name": "Руководитель направления по финансовой аналитике и бюджетированию",
+        "url": "https://hh.ru/vacancy/126251076",
+        "description": "Опыт работы 3-5 лет. Знание Oracle Pl/<highlighttext>SQL</highlighttext> (продвинутый уровень). Знание мат.статистики. Python (базовые библиотеки для работы с данными). ",
+        "salary": {
+            "from": 175000,
+            "to": 350000
+        }
+    },
+    {
+        "id": "126017120",
+        "name": "Бизнес-аналитик",
+        "url": "https://hh.ru/vacancy/126017120",
+        "description": "Высшее образование (желательно техническое или математическое). Плюсом будет знание языков программирования (например, <highlighttext>SQL</highlighttext>, Python). Понимание принципов работы реляционных баз данных. ",
+        "salary": {
+            "from": 160000,
+            "to": 180000
+        }
+    },
+    {
+        "id": "125557683",
+        "name": "Системный аналитик",
+        "url": "https://hh.ru/vacancy/125557683",
+        "description": "Высшее образование (желательно техническое или математическое). Плюсом будет знание языков программирования (например, <highlighttext>SQL</highlighttext>, Python). Понимание принципов работы реляционных баз данных. ",
+        "salary": {
+            "from": 160000,
+            "to": 200000
+        }
+    },
+    {
+        "id": "126257440",
+        "name": "Инженер данных (Data Engineer)",
+        "url": "https://hh.ru/vacancy/126257440",
+        "description": "Владение Python (аналитический стек: Pandas, NumPy, и др.) и <highlighttext>SQL</highlighttext> (Clickhouse, MySQL, PostgreSQL) для написания запросов и обработки данных, а...",
+        "salary": {
+            "from": 160000,
+            "to": 160000
+        }
+    },
+    {
+        "id": "126261720",
+        "name": "Финансовый контролер",
+        "url": "https://hh.ru/vacancy/126261720",
+        "description": "Опыт автоматизации финансовых бизнес-процессов на участках управленческого учета и/или казначейства. Знание Python. Умение работать с <highlighttext>SQL</highlighttext> (работа с...",
+        "salary": {
+            "from": 150000,
+            "to": 150000
+        }
+    },
+    {
+        "id": "125483778",
+        "name": "Junior DevOps / Python backend engineer",
+        "url": "https://hh.ru/vacancy/125483778",
+        "description": "Знание Python на уровне написания простых сервисов, скриптов. Навыки работы с <highlighttext>SQL</highlighttext>, желательно PostgreSQL. Внимательность, инициативность, системное мышление. ",
+        "salary": {
+            "from": 150000,
+            "to": 300000
+        }
+    },
+    {
+        "id": "125971191",
+        "name": "Инженер технической поддержки и внедрения L2",
+        "url": "https://hh.ru/vacancy/125971191",
+        "description": "Опыт работы с виртуализацией (Proxmox, VMware, Hyper-V). Навыки скриптования (Python, Bash и др.) для автоматизации задач. Знание <highlighttext>SQL</highlighttext>. ",
+        "salary": {
+            "from": 150000,
+            "to": 180000
+        }
+    },
+    {
+        "id": "124604333",
+        "name": "Аналитик данных",
+        "url": "https://hh.ru/vacancy/124604333",
+        "description": "PostgreSQL (базовые знания <highlighttext>SQL</highlighttext>). - DataLens (любой другой BI инструмент). - Python (знание pandas).",
+        "salary": {
+            "from": 150000,
+            "to": 150000
+        }
+    },
+    {
+        "id": "123635027",
+        "name": "Бизнес-аналитик",
+        "url": "https://hh.ru/vacancy/123635027",
+        "description": "Умение работать с числовой информацией, обрабатывать, структурировать и анализировать массивы данных. Навыки программирования на Python, <highlighttext>SQL</highlighttext> (как преимущество).",
+        "salary": {
+            "from": 150000,
+            "to": 150000
+        }
+    },
+    {
+        "id": "126266965",
+        "name": "Системный аналитик (Big Data)",
+        "url": "https://hh.ru/vacancy/126266965",
+        "description": "Опыт работы аналитиком от 3 лет. Владение <highlighttext>SQL</highlighttext> (вложенные запросы, pivot-ы). Опыт работы с данными. Хорошее владение Python. ",
+        "salary": {
+            "from": 150000,
+            "to": 300000
+        }
+    }
+]

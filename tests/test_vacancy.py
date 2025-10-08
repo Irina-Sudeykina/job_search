@@ -160,11 +160,11 @@ def test_cast_to_object_list(json_vacancies1, json_vacancies2) -> None:
     del Vacancy.instances[:]
     assert len(Vacancy.instances) == 0
 
-    Vacancy.cast_to_object_list(json_vacancies1)
+    Vacancy.cast_to_object_list(json_vacancies1)  # Передаем строку JSON сразу
 
     assert len(Vacancy.instances) == 2
 
-    Vacancy.cast_to_object_list(json_vacancies2)
+    Vacancy.cast_to_object_list(json_vacancies2)  # Передаем вторую строку JSON
 
     assert len(Vacancy.instances) == 4
 
@@ -191,3 +191,35 @@ def test_top_n_salary(list_vacansies_obj1) -> None:
     top_vacancy = Vacancy.top_n_salary(2)
     print(top_vacancy)
     assert len(top_vacancy) == 2
+
+
+def test_filter_by_salary(json_vacancies2) -> None:
+    """
+    Проверка фильтрации объектов Vacancy по зарплате
+    :param json_vacancies2: Фикстура списка вакансий в JSON формате - 2
+    :return: Ничего не возвращает
+    """
+    del Vacancy.instances[:]
+    assert len(Vacancy.instances) == 0
+
+    Vacancy.cast_to_object_list(json_vacancies2)  # Используем правильный JSON
+
+    assert len(Vacancy.instances) == 2
+    Vacancy.filter_by_salary(150000, 300000)
+    assert len(Vacancy.instances) == 1
+
+
+def test_filter_by_words(json_vacancies1) -> None:
+    """
+    Проверка фильтрации объектов Vacancy по словам в описании
+    :param json_vacancies1: Фикстура списка вакансий в JSON формате - 1
+    :return: Ничего не возвращает
+    """
+    del Vacancy.instances[:]
+    assert len(Vacancy.instances) == 0
+
+    Vacancy.cast_to_object_list(json_vacancies1)  # Используем правильный JSON
+
+    assert len(Vacancy.instances) == 2
+    Vacancy.filter_by_words("Python")  # Слово для фильтрации
+    assert len(Vacancy.instances) == 1

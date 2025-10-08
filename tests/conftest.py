@@ -1,5 +1,3 @@
-import json
-
 import pytest
 
 from src.hh_api import HeadHunterAPI
@@ -126,63 +124,74 @@ def vacancy11():
 
 @pytest.fixture
 def json_vacancies1():
-    """
-    Фикстура списка вакансий в JSON формате - 1
-    """
-    data_vacancies = """
-        [
-            {
-                "id": "12345",
-                "name": "Developer",
-                "alternate_url": "https://hh.ru/vacancy/12345",
-                "description": "Python Developer",
-                "salary": {"from": 120000, "to": 150000}
+    return """[
+        {
+            "id": "12345",
+            "name": "Разработчик Python",
+            "alternate_url": "https://hh.ru/vacancy/12345",
+            "snippet": {
+                "requirement": "Знание Python"
             },
-            {
-                "id": "123456",
-                "name": "PHP Developer",
-                "alternate_url": "https://hh.ru/vacancy/123456",
-                "description": "Python Developer",
-                "salary": 130000
+            "salary": {
+                "from": 120000,
+                "to": 150000
             }
-        ]
-    """
-    json_vacancies_str = json.loads(data_vacancies)
-    return json.dumps(json_vacancies_str)
+        },
+        {
+            "id": "67890",
+            "name": "Дизайнер UI/UX",
+            "alternate_url": "https://hh.ru/vacancy/67890",
+            "snippet": {
+                "requirement": "Опыт проектирования интерфейсов"
+            },
+            "salary": {
+                "from": 80000,
+                "to": 100000
+            }
+        },
+        {
+            "id": "67890",
+            "name": "Дизайнер UI/UX",
+            "alternate_url": "https://hh.ru/vacancy/67890",
+            "snippet": {
+                "requirement": "Опыт проектирования интерфейсов"
+            },
+            "salary": {
+                "from": 80000,
+                "to": 100000
+            }
+        }
+    ]"""
 
 
 @pytest.fixture
 def json_vacancies2():
-    """
-    Фикстура списка вакансий в JSON формате - 2
-    """
-    data_vacancies = """
-        [
-            {
-                "id": "125598563",
-                "name": "Бизнес-аналитик",
-                "alternate_url": "https://hh.ru/vacancy/125598563",
-                "description": "Ищем джуниор-специалистов, которые помогут нам создавать продукты и сервисы",
-                "salary": null
+    return """[
+        {
+            "id": "123456",
+            "name": "JavaScript-разработчик",
+            "alternate_url": "https://hh.ru/vacancy/123456",
+            "snippet": {
+                "requirement": "Опыт разработки фронтенда"
             },
-            {
-                "id": "92752367",
-                "name": "Менеджер по продажам недвижимости",
-                "alternate_url": "https://hh.ru/vacancy/92752367",
-                "description": "Анализ рынка и объектов недвижимости. Предварительная оценка недвижимости.",
-                "salary": {"from": 50000, "to": 60000}
-            },
-            {
-                "id": "12345",
-                "name": "Python Developer",
-                "alternate_url": "https://hh.ru/vacancy/12345",
-                "description": "Python Developer",
-                "salary": {"from": 120000, "to": 150000}
+            "salary": {
+                "from": 140000,
+                "to": 140000
             }
-        ]
-    """
-    json_vacancies_str = json.loads(data_vacancies)
-    return json.dumps(json_vacancies_str)
+        },
+        {
+            "id": "789012",
+            "name": "Специалист по обработке данных",
+            "alternate_url": "https://hh.ru/vacancy/789012",
+            "snippet": {
+                "requirement": "Работа с большими объемами данных"
+            },
+            "salary": {
+                "from": 150000,
+                "to": 150000
+            }
+        }
+    ]"""
 
 
 @pytest.fixture
@@ -230,7 +239,7 @@ def list_vacansies_obj1():
         ),
         Vacancy(
             "125962759",
-            "MPython разработчик Middle+",
+            "Python разработчик Middle+",
             "https://hh.ru/vacancy/125962759",
             "Опыт разработки на Python 3.10+ в production-разработке.",
             {"from": 150000, "to": 200000},

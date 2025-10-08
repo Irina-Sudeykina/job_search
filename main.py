@@ -1,10 +1,6 @@
-import json
-
 from src.hh_api import HeadHunterAPI
 from src.vacancy import Vacancy
-
-# from src.working_with_json_files import WorkingWithJsonFiles
-# import src.utils as utils
+from src.working_with_json_files import WorkingWithJsonFiles
 
 
 def user_interaction() -> None:
@@ -14,74 +10,50 @@ def user_interaction() -> None:
     # Создание экземпляра класса для работы с API сайтов с вакансиями
     hh_api = HeadHunterAPI()
 
+    print("Добро пожаловать!")
+    search_query = input("Введите поисковый запрос: ")
+
     # Получение вакансий с hh.ru в формате JSON
-    # hh_vacancies_json = hh_api.get_vacancies("Python")
+    hh_vacancies_json = hh_api.get_vacancies(search_query)
 
-    # Парсим строку JSON в словарь
-    # hh_vacancies = json.loads(hh_vacancies_json)
+    # Конвертирование JSON-вакансий в объекты Vacancy
+    Vacancy.cast_to_object_list(hh_vacancies_json)
 
-    # Распечатываем первую вакансию
-    # print(hh_vacancies[0])
+    # Запрашиваем фильтры по зарплате
+    salary_from = int(input("Введите нижнюю границу для фильтрации по зарплате:"))
+    salary_to = int(input("Введите верхнюю границу для фильтрации по зарплате:"))
+    filtered_by_salary = Vacancy.filter_by_salary(salary_from, salary_to)
+    print("Отобрано вакансий:", len(filtered_by_salary))
 
-    # Берём ID первой вакансии
-    # id_vacancy = hh_vacancies[0].get("id")
+    # Фильтрация по описанию
+    words = input("\nВведите текст для фильтрации по описанию: ")
+    filtered_by_words = Vacancy.filter_by_words(words)
+    print("Отобрано вакансий:", len(filtered_by_words))
 
-    # Получаем полную информацию по вакансии
-    hh_vacancy_description = hh_api.get_vacancy_description("125598563")
-    print(type(hh_vacancy_description))
-    print(hh_vacancy_description)
+    # Отбираем топ-N вакансий по зарплате
+    top_n = int(input("\nВведите количество вакансий для вывода в топ N: "))
+    top_vacancy = Vacancy.top_n_salary(top_n)
+    print("Отобрано вакансий:", len(top_vacancy))
 
-    vacancy1 = Vacancy(
-        "12345", "Developer", "https://hh.ru/vacancy/12345", "description", {"from": 120000, "to": 150000}
-    )
-    print(vacancy1.name)
-
-    vacancy2 = Vacancy("123456", "PHP Developer", "https://hh.ru/vacancy/123456", "description", 0)
-    print(vacancy2.name)
-
-    print(len(Vacancy.instances))
-
-    data_vacancies = """
-        [
+    # Сохранение результатов в файл
+    is_save = input("\nСохранить выбранные вакансии в файл? (y/n): ")
+    if is_save == "y":
+        # Формирование списка объектов Vacancy в виде словарей
+        saved_vacancies = [
             {
-                "id": "125598563",
-                "name": "Бизнес-аналитик",
-                "alternate_url": "https://hh.ru/vacancy/125598563",
-                "description": "Ищем джуниор-специалистов, которые помогут нам создавать продукты и сервисы",
-                "salary": null
-            },
-            {
-                "id": "92752367",
-                "name": "Менеджер по продажам недвижимости",
-                "alternate_url": "https://hh.ru/vacancy/92752367",
-                "description": "Анализ рынка и объектов недвижимости. Предварительная оценка недвижимости.",
-                "salary": {"from": 50000, "to": 60000}
-            },
-            {
-                "id": "12345",
-                "name": "Python Developer",
-                "alternate_url": "https://hh.ru/vacancy/12345",
-                "description": "Python Developer",
-                "salary": {"from": 120000, "to": 150000}
+                "id": vacancy.id_vacancy,  # type: ignore
+                "name": vacancy.name,  # type: ignore
+                "url": vacancy.url,  # type: ignore
+                "description": vacancy.description,  # type: ignore
+                "salary": vacancy.salary,  # type: ignore
             }
+            for vacancy in top_vacancy
         ]
-    """
-    json_vacancies_str = json.loads(data_vacancies)
-    print(type(json_vacancies_str))
-    json_vacancies = json.dumps(json_vacancies_str)
-    print(type(json_vacancies))
 
-    Vacancy.cast_to_object_list(json_vacancies)
-    print(len(Vacancy.instances))
-
-    Vacancy.sorted_by_salary()
-    for i in Vacancy.instances:
-        print(str(i))
-
-    print("\n\n")
-    top_vacancy = Vacancy.top_n_salary(2)
-    print("\n")
-    print(len(top_vacancy))
+        # Сохраняем данные в JSON-файл
+        saved = WorkingWithJsonFiles(f"vacancy_hh_{search_query}.json")
+        saved.adding_data(saved_vacancies, "id")
+        print("Данные сохранены.")
 
 
 if __name__ == "__main__":
