@@ -1,4 +1,11 @@
 def merging_dictionary_lists(data: list[dict], new_data: list[dict], key_str: str) -> list[dict]:
+    """
+    Функция объединения списков словарей
+    :param data: первый список словарей
+    :param new_data: второй список словарей
+    :param key_str: ключ по которому сравниваются списки словарей
+    :return: список словарей
+    """
     merge_list: list[dict] = []
     for i in data:
         if len(merge_list) == 0:
@@ -30,6 +37,12 @@ def merging_dictionary_lists(data: list[dict], new_data: list[dict], key_str: st
 
 
 def sort_dictionary_lists(data: list[dict], params: list, is_reverse=True) -> list[dict]:
+    """
+    Функция сортировки списка словарей
+    :param data: список словарей
+    :param params: список ключей, для сортировки
+    :return: список словарей
+    """
     # Сортировка по ключу/ключам
     if len(params) == 0:
         return data
